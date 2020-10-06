@@ -7,12 +7,16 @@ class Navbar extends React.Component {
         return (
             <div>
                 <div id="mySidenav" className="sidenav">
-                    <a to="javascript:void(0)" className="closebtn" onClick={this.props.closeNav}>&times;</a>
-                    <Link to="/budget">Budget</Link>
-                    <Link to="/item">Item</Link>
-                    <Link to="/limit">Limit</Link>
-                    <Link to="/">Home</Link>
-
+                    <div>
+                        <span
+                            style={{fontSize: 30, cursor: "pointer", marginLeft:'10%', color:'white'}}>&#9776;</span>
+                    </div>
+                    <div style={{marginTop:'10%'}}>
+                        <Link to="/">Home</Link>
+                        <Link to="/budget">Budget</Link>
+                        <Link to="/item">Item</Link>
+                        <Link to="/limit">Limit</Link>
+                    </div>
                 </div>
             </div>
         )
