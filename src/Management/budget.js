@@ -3,17 +3,20 @@ import {Form, Row, Col, Button, Table} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import firebase from "../firebase";
 const db = firebase.ref("/budget");
+const site = firebase.ref("/Sites");
 
 export default class Budget extends Component{
     constructor(props) {
         super(props);
         this.state={
             budget:'',
-            budgetList:[]
+            budgetList:[],
+            siteList:[],
+            site:''
         };
         this.handleBudget = this.handleBudget.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-
+        this.handleSite = this.handleSite.bind(this);
     }
     componentDidMount() {
         db.on("value", (budgets)=>{
@@ -25,7 +28,20 @@ export default class Budget extends Component{
                 console.log(this.state.budgetList)
             });
         });
+        site.on("value", (budgets)=>{
+            budgets.forEach((budget) => {
+                this.state.siteList.push(budget.key);
+                this.setState({
+                    siteList:this.state.siteList
+                });
+            });
+        });
+    }
 
+    handleSite(event){
+        this.setState({
+            site:event.target.value
+        })
     }
 
     handleBudget(event){
@@ -34,11 +50,9 @@ export default class Budget extends Component{
         })
     }
     handleSubmit(){
-        this.setState({
-            budgetList:[]
-        });
         let budget = {
-            budget: this.state.budget
+            budget: this.state.budget,
+            site: this.state.site
         };
 
         db.push(budget)
@@ -46,6 +60,15 @@ export default class Budget extends Component{
                 console.log("Created new budget successfully!");
                 this.setState({
                     budget: '',
+                    budgetList:[]
+                });
+                db.on("value", (budgets)=>{
+                    budgets.forEach((budget) => {
+                        this.state.budgetList.push(budget.val());
+                        this.setState({
+                            budgetList:this.state.budgetList
+                        });
+                    });
                 });
             })
             .catch((e) => {
@@ -69,20 +92,31 @@ export default class Budget extends Component{
                                 <Form.Control type="text" value={this.state.budget} onChange={this.handleBudget}  />
                             </Col>
                         </Form.Group>
+                        <Form.Group style={{margin:'5%'}} as={Row} controlId="formPlaintextFirstName">
+                            <Form.Label column sm="8">
+                                Set Site
+                            </Form.Label>
+                            <Col sm="10">
+                                <Form.Control required value={this.state.site} as="select" onChange={this.handleSite}>
+                                    <option>SELECT</option>
+                                    {this.state.siteList.map((team,i) => <option key={i} value={team}>{team}</option>)}
+                                </Form.Control>
+                            </Col>
+                        </Form.Group>
                         <Form.Group as={Row} controlId="formPlainButton" style={{ margin: '30px' }}>
                             <Button lg type="button" onClick={this.handleSubmit} style={{ marginLeft: '40%', marginRight: '30px', backgroundColor: '#3fb1c6' }}>
                                 ADD BUDGET
                             </Button>
                         </Form.Group>
                         <div style={{marginTop:'10%', marginLeft:'5%', marginRight:'5%'}}>
-                        <Table striped bordered hover variant="dark">
+                        <Table striped bordered hover variant="light">
                             <thead>
                             <tr>
-                                <th>ITEMS</th>
+                                <th>BUDGETS</th>
                             </tr>
                             </thead>
                             <tbody>
-                                {this.state.budgetList.map(n => <tr><td>{n.budget}</td></tr>)}
+                                {this.state.budgetList.map(n => <tr><td>{n.budget}</td><td>{n.site}</td></tr>)}
                             </tbody>
                         </Table>
                         </div>
