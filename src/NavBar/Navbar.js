@@ -16,6 +16,7 @@ class Navbar extends React.Component {
                         <Link to="/budget">Budget</Link>
                         <Link to="/item">Item</Link>
                         <Link to="/limit">Limit</Link>
+                        <Link to="/view-order-status">Orders</Link>
                     </div>
                 </div>
             </div>
