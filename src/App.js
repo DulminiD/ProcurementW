@@ -6,6 +6,8 @@ import Limit from "./Management/limit";
 import Item from "./Management/item";
 import Budget from "./Management/budget";
 import Home from "./Home/home";
+import OrderView from "./OrderApproval/OrderView";
+import ApproveOrder from "./OrderApproval/ApproveOrder";
 
 class App extends React.Component {
 
@@ -29,6 +31,8 @@ class App extends React.Component {
             <Route path="/limit" exact component={Limit}/>
             <Route path="/budget" exact component={Budget}/>
             <Route path="/item" exact component={Item}/>
+            <Route path="/view-order-status" exact component={OrderView}/>
+            <Route path="/approve-order/:id" exact component={ApproveOrder}/>
           </BrowserRouter>
         </div>
     );
