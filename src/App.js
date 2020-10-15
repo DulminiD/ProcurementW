@@ -15,22 +15,14 @@ class App extends React.Component {
     document.body.style.backgroundColor = "rgba(0,0,0,0)";
   }
 
-  // closeNav() {
-  //   document.getElementById("mySidenav").style.width = "0";
-  //   document.getElementById("main").style.marginLeft = "0";
-  //   document.body.style.backgroundColor = "white";
-  // }
-
   componentDidMount() {
       this.openNav();
   }
 
     render() {
     return (
-        <div>
+        <div style={{backgroundColor:'#f1f1f1', height:'100%', width:'100%'}}>
           <div id="main"/>
-            {/*<span style={{fontSize: 30, cursor: "pointer"}}>&#9776;</span>*/}
-
           <BrowserRouter>
             <Navbar openNav={this.openNav} closeNav={this.closeNav}/>
             <Route path="/" exact component={Home}/>

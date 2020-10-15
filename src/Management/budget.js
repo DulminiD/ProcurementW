@@ -25,7 +25,6 @@ export default class Budget extends Component{
                 this.setState({
                     budgetList:this.state.budgetList
                 });
-                console.log(this.state.budgetList)
             });
         });
         site.on("value", (budgets)=>{

@@ -22,7 +22,6 @@ export default class Item extends Component{
                 this.setState({
                     itemList:this.state.itemList
                 });
-                console.log(this.state.itemList)
             });
         });
 
@@ -39,7 +38,6 @@ export default class Item extends Component{
         let item = {
             item: this.state.item
         };
-        console.log('Came');
         db.push(item)
             .then((res) => {
                 console.log("Created new item successfully!");
@@ -56,7 +54,7 @@ export default class Item extends Component{
         return(
             <div style={{height:'50%', width:'50%', marginTop:'5%', marginLeft:'30%', backgroundColor:'#f1f1f1'}}>
                 <div style={{backgroundColor:'#3fb1c6', border: '2px solid black'}}>
-                    <p style={{marginLeft:'40%', color: 'white', fontSize:'20px', marginTop:'3%'}}>UPDATE LIMIT</p>
+                    <p style={{marginLeft:'40%', color: 'white', fontSize:'20px', marginTop:'3%'}}>ITEMS</p>
                 </div>
                 <div style={{ border: '2px solid black'}}>
                     <Form>
@@ -75,7 +73,7 @@ export default class Item extends Component{
                             </Button>
                         </Form.Group>
                         <div style={{marginTop:'10%', marginLeft:'5%', marginRight:'5%'}}>
-                            <Table striped bordered hover variant="dark">
+                            <Table striped bordered hover variant="light">
                                 <thead>
                                 <tr>
                                     <th>ITEMS</th>

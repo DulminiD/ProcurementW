@@ -1,6 +1,11 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import "./Navbar.css"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHome } from '@fortawesome/free-solid-svg-icons'
+import { faMoneyBill } from '@fortawesome/free-solid-svg-icons'
+import { faLayerGroup } from '@fortawesome/free-solid-svg-icons'
+import { faHandPaper } from '@fortawesome/free-solid-svg-icons'
 
 class Navbar extends React.Component {
     render() {
@@ -12,10 +17,10 @@ class Navbar extends React.Component {
                             style={{fontSize: 30, cursor: "pointer", marginLeft:'10%', color:'white'}}>&#9776;</span>
                     </div>
                     <div style={{marginTop:'10%'}}>
-                        <Link to="/">Home</Link>
-                        <Link to="/budget">Budget</Link>
-                        <Link to="/item">Item</Link>
-                        <Link to="/limit">Limit</Link>
+                        <Link to="/"><FontAwesomeIcon icon={faHome} /><text style={{padding:'20px'}}>Home</text></Link>
+                        <Link to="/budget"><FontAwesomeIcon icon={faMoneyBill} /><text style={{padding:'20px'}}>Budget</text></Link>
+                        <Link to="/item"><FontAwesomeIcon icon={faLayerGroup} /><text style={{padding:'20px'}}>Item</text></Link>
+                        <Link to="/limit"><FontAwesomeIcon icon={faHandPaper} /><text style={{padding:'20px'}}>Limit</text></Link>
                     </div>
                 </div>
             </div>
