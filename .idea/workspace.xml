@@ -124,10 +124,14 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="162" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1602786507659" />
-    <state x="698" y="19" key="CommitChangelistDialog2" timestamp="1602613648195">
+    <state x="698" y="19" key="CommitChangelistDialog2" timestamp="1602795338482">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="698" y="19" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1602613648195" />
+    <state x="698" y="19" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1602795338482" />
+    <state x="668" y="108" width="776" height="624" key="DiffContextDialog" timestamp="1602795404419">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="668" y="108" width="776" height="624" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1602795404419" />
     <state width="940" height="222" key="GridCell.Tab.0.bottom" timestamp="1602790023352">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -144,14 +148,18 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="940" height="222" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1602790023352" />
+    <state x="843" y="139" key="VCS.ChangeListViewerDialog" timestamp="1602795398010">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="843" y="139" key="VCS.ChangeListViewerDialog/0.0.1536.824@0.0.1536.824" timestamp="1602795398010" />
     <state x="361" y="148" key="Vcs.Push.Dialog.v2" timestamp="1602613672980">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="361" y="148" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1602613672980" />
-    <state x="580" y="331" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1602613657915">
+    <state x="580" y="331" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1602795345304">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="580" y="331" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1602613657915" />
+    <state x="580" y="331" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1602795345304" />
     <state x="777" y="224" key="git4idea.merge.GitPullDialog" timestamp="1602013886535">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
