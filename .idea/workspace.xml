@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5e6fbc9f-52b8-43e1-b703-a2f2f6de757d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/assets/img/14.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/img/17.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/img/18.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/debug.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Home/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Home/home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Management/budget.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Management/budget.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Management/item.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Management/item.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/NavBar/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/NavBar/Navbar.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +73,7 @@
       <workItem from="1602523445729" duration="2531000" />
       <workItem from="1602566800592" duration="2418000" />
       <workItem from="1602611058298" duration="1441000" />
-      <workItem from="1602774355491" duration="11224000" />
+      <workItem from="1602774355491" duration="11475000" />
     </task>
     <task id="LOCAL-00001" summary="NavBar implemented">
       <created>1602000931323</created>
@@ -107,7 +96,21 @@
       <option name="project" value="LOCAL" />
       <updated>1602613649062</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added home page">
+      <created>1602795339131</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1602795339131</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added home page">
+      <created>1602795408885</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1602795408885</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -117,7 +120,8 @@
     <MESSAGE value="NavBar implemented" />
     <MESSAGE value="Implemented Item, Budget, Limit" />
     <MESSAGE value="Changed Budget" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed Budget" />
+    <MESSAGE value="Added home page" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added home page" />
   </component>
   <component name="WindowStateProjectService">
     <state x="499" y="162" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1602786507659">
@@ -128,10 +132,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="698" y="19" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1602795338482" />
-    <state x="668" y="108" width="776" height="624" key="DiffContextDialog" timestamp="1602795404419">
+    <state x="668" y="108" width="776" height="624" key="DiffContextDialog" timestamp="1602795545376">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="668" y="108" width="776" height="624" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1602795404419" />
+    <state x="668" y="108" width="776" height="624" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1602795545376" />
     <state width="940" height="222" key="GridCell.Tab.0.bottom" timestamp="1602790023352">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -148,10 +152,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="940" height="222" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1602790023352" />
-    <state x="843" y="139" key="VCS.ChangeListViewerDialog" timestamp="1602795398010">
+    <state x="843" y="139" key="VCS.ChangeListViewerDialog" timestamp="1602795517696">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="843" y="139" key="VCS.ChangeListViewerDialog/0.0.1536.824@0.0.1536.824" timestamp="1602795398010" />
+    <state x="843" y="139" key="VCS.ChangeListViewerDialog/0.0.1536.824@0.0.1536.824" timestamp="1602795517696" />
     <state x="361" y="148" key="Vcs.Push.Dialog.v2" timestamp="1602613672980">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
