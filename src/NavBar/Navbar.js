@@ -22,6 +22,11 @@ class Navbar extends React.Component {
                         <Link to="/item"><FontAwesomeIcon icon={faLayerGroup} /><text style={{padding:'20px'}}>Item</text></Link>
                         <Link to="/limit"><FontAwesomeIcon icon={faHandPaper} /><text style={{padding:'20px'}}>Limit</text></Link>
                         <Link to="/view-order-status">Orders</Link>
+                        <Link to='/login'>Login</Link>
+                        <Link to='/reg'>Register</Link>
+                        <Link to='/addsupliers'>Add Suppliers</Link>
+                        <Link to='viewsupliers'>View Supplier</Link>
+
                     </div>
                 </div>
             </div>
