@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import {Form, Row, Col, Button, Table} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import firebase from "../firebase";
+import firebase from "../../firebase";
+import Item from "../Modal/item";
 const db = firebase.ref("/item");
 
-export default class Item extends Component{
+export default class ItemService extends Component{
     constructor(props) {
         super(props);
         this.state={
@@ -16,6 +17,9 @@ export default class Item extends Component{
 
     }
     componentDidMount() {
+        /*
+        Getting the list of available items
+         */
         db.on("value", (items)=>{
             items.forEach((item) => {
                 this.state.itemList.push(item.val());
@@ -27,23 +31,40 @@ export default class Item extends Component{
 
     }
     handleItem(event){
+        /*
+        Handling the item name added in the form
+         */
         this.setState({
             item:event.target.value
         })
     }
-    handleSubmit(){
+    handleSubmit(e){
+        /*
+        Saving the added item in the database
+         */
+        e.preventDefault();
         this.setState({
            itemList:[]
         });
-        let item = {
-            item: this.state.item
-        };
+
+        let item = new Item();
+        item.itemID = 'item'+this.state.item;
+        item.itemName = this.state.item;
+
         db.push(item)
             .then((res) => {
                 console.log("Created new item successfully!");
-                console.log(res);
                 this.setState({
                     item: '',
+                    itemList:[]
+                });
+                db.on("value", (items)=>{
+                    items.forEach((item) => {
+                        this.state.itemList.push(item.val());
+                        this.setState({
+                            itemList:this.state.itemList
+                        });
+                    });
                 });
             })
             .catch((e) => {
@@ -80,7 +101,7 @@ export default class Item extends Component{
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {this.state.itemList.map(n => <tr><td>{n.item}</td></tr>)}
+                                {this.state.itemList.map(n => <tr><td>{n.itemName}</td></tr>)}
                                 </tbody>
                             </Table>
                         </div>

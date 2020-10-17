@@ -2,9 +2,9 @@ import React from 'react';
 import './App.css';
 import {BrowserRouter, Route} from "react-router-dom";
 import Navbar from "./NavBar/Navbar";
-import Limit from "./Management/limit";
-import Item from "./Management/item";
-import Budget from "./Management/budget";
+import LimitService from "./Management/Service/limitService";
+import ItemService from "./Management/Service/itemService";
+import BudgetService from "./Management/Service/budgetService";
 import Home from "./Home/home";
 import OrderView from "./OrderApproval/OrderView";
 import ApproveOrder from "./OrderApproval/ApproveOrder";
@@ -37,9 +37,9 @@ class App extends React.Component {
                 <BrowserRouter>
                     <Navbar openNav={this.openNav} closeNav={this.closeNav}/>
                     <Route path="/" exact component={Home}/>
-                    <Route path="/limit" exact component={Limit}/>
-                    <Route path="/budget" exact component={Budget}/>
-                    <Route path="/item" exact component={Item}/>
+                    <Route path="/limit" exact component={LimitService}/>
+                    <Route path="/budget" exact component={BudgetService}/>
+                    <Route path="/item" exact component={ItemService}/>
                     <Route path="/view-order-status" exact component={OrderView}/>
                     <Route path="/approve-order/:id" exact component={ApproveOrder}/>
                     <Route path="/login" exact component={Login}/>
