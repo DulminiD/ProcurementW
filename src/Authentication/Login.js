@@ -18,19 +18,38 @@ class Login extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    componentDidMount() {
+        const uname =  localStorage.getItem('userName')
+        console.log(uname)
+        if(uname !== null){
+            this.props.history.push("/")
+        }
+    }
 
     onSubmit = (e) => {
         e.preventDefault();
+        let loging = false
+        let type = ''
         db.on("value", (items)=>{
             items.forEach((item) => {
               if(item.val().username === this.state.uname && item.val().password === this.state.pwd){
                   localStorage.setItem('userName', JSON.stringify(item.val().username))
-                  swal("Login Successfully!", "User are now Login!", "success").then(() => {
-                      this.props.history.push("/home")
-                  })
+                  loging = true
+                  type = item.val().type
+
               }
             });
-            swal("Login Failed!", "Incorrect User Name and Password!", "error").then(null)
+            if(!loging)
+                swal("Login Failed!", "Incorrect User Name and Password!", "error").then(null)
+            else {
+                if(type === 'SM'){
+                    swal("Login Failed!", "Site Managers cannot logging to the system!", "error").then(null)
+                }else {
+                    swal("Login Successfully!", "User are now Login!", "success").then(() => {
+                        this.props.history.push("/")
+                    })
+                }
+            }
         });
     }
 

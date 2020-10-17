@@ -2,6 +2,15 @@ import React, {Component} from 'react';
 import {Carousel} from "react-bootstrap";
 
 export default class Home extends Component{
+
+    componentDidMount() {
+        const uname =  localStorage.getItem('userName')
+        console.log(uname)
+        if(uname === null){
+            this.props.history.push("/login")
+        }
+    }
+
     render() {
         return(
             <div className='container-fluid' >

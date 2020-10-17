@@ -97,8 +97,9 @@ class Register extends Component {
                                                             this.setState({type:e.target.value})
                                                         }}>
                                                             <option>Select</option>
-                                                            <option>Manager</option>
-                                                            <option>Seller</option>
+                                                            <option value={'Manager'}>Manager</option>
+                                                            <option value={'PS'}>Procurement Staff</option>
+                                                            <option value={'SM'}>Site Manager</option>
                                                         </Input>
                                                     </div>
                                                 </div>
