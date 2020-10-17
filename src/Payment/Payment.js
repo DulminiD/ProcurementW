@@ -3,6 +3,8 @@ import {Button, Table} from "react-bootstrap";
 import firebase from "../firebase";
 import moment from "moment";
 import Model from "./Model";
+import Loader from 'react-loader-spinner'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 const db = firebase.ref().child('Orders');
 const db1 = firebase.ref().child('suppliers');
 class Payment extends Component {
@@ -13,7 +15,10 @@ class Payment extends Component {
             orderList : [],
             suppliers:[],
             modal:false,
-            obj : []
+            obj : [],
+            orderid:'',
+            tot:''
+
 
         }
     }
@@ -23,7 +28,8 @@ class Payment extends Component {
             let allOrders = [];
             snapshot.forEach(snap => {
                 console.log(snap.key);
-                allOrders.push(snap.val());
+                if(snap.val().status === 'Placed')
+                    allOrders.push(snap.val());
             });
             this.setState({orderList: allOrders},() =>console.log(this.state.orderList));
 
@@ -84,6 +90,21 @@ class Payment extends Component {
 
     }
 
+
+    getTot = (oid,sid) => {
+        let price = 0
+        let index = this.state.orderList.findIndex(x => x.ID ===oid)
+        let index1 = this.state.suppliers.findIndex(x => x.sname ===sid)
+        this.state.orderList[index].item.map(i => {
+            this.state.suppliers[index1].itemList.map(l => {
+                if(l.item === i.item){
+                    price = price + (i.quantity * l.unit)
+                }
+            })
+        })
+        return price
+    }
+
     closePopup = () => {
         this.setState({modal: false})
     }
@@ -97,11 +118,25 @@ class Payment extends Component {
 
     render() {
         if(this.state.orderList.length ===  0)
-            return null
+            return (
+                <Loader
+                    type="Oval" color="#00BFFF" height={80} width={80}
+                    timeout={5000} //5 secs
+                />
+            )
         if(this.state.suppliers.length ===  0)
-            return null
+            return (
+                <Loader
+                    type="Oval" color="#00BFFF" height={80} width={80}
+                    timeout={5000} //5 secs
+                />
+            )
         return (
-            <div className="mt-5 mr-5" style={{marginLeft:'20%'}}>
+            <div style={{height:'80%', width:'70%', marginTop:'5%', marginLeft:'20%', backgroundColor:'#f1f1f1'}}>
+                <div style={{backgroundColor:'#3fb1c6', border: '2px solid black'}}>
+                    <p style={{marginLeft:'40%', color: 'white', fontSize:'20px', marginTop:'3%'}}>Delivered Orders</p>
+                </div>
+                <div style={{ border: '2px solid black'}}>
                 <Table striped bordered hover  >
                     <thead style={{backgroundColor:"#3fb1c6",color:'white'}} className="font-weight-bold">
                     <tr>
@@ -110,7 +145,7 @@ class Payment extends Component {
                         <th>Details</th>
                         <th>Date</th>
                         <th>Status</th>
-                        <th>Total Cost</th>
+                        <th>Total</th>
                         <th>Payment</th>
                     </tr>
                     </thead>
@@ -119,15 +154,19 @@ class Payment extends Component {
                         return <tr key={i}>
                             <td>{orders.ID}</td>
                             <td>{orders.supplierID}</td>
-                            <td>{orders.description}</td>
+                            <td>{
+                                orders.item.map(items=>{
+                                    return <div>{items.item} - {items.quantity}</div>
+                                })
+                            }</td>
                             <td>{ moment((orders.date)).format('L')}</td>
                             <td>{orders.status}</td>
-                            <td>{setTimeout(() =>this.getTotalCost(orders.item,orders.supplierID),1000)}</td>
+                            <td>{this.getTot(orders.ID,orders.supplierID)}</td>
                             <td>
 
                                     <Button variant="outline-primary" className="pl-3 pr-3" onClick={() => {
                                         this.setSupplier(orders.supplierID)
-                                        this.setState({modal:true})}}>Make Payment</Button>
+                                        this.setState({orderid:orders.ID,tot :this.getTot(orders.ID,orders.supplierID),modal:true})}}>Make Payment</Button>
 
                             </td>
                         </tr>
@@ -137,27 +176,9 @@ class Payment extends Component {
                 </Table>
 
 
-                <Model modal={this.state.modal}  close={this.closePopup} obj={this.state.obj}/>
-                {/*<Modal isOpen={this.state.modal} >*/}
-                {/*    <ModalHeader >Make Payment</ModalHeader>*/}
-                {/*    <ModalBody>*/}
-                {/*        <p> Supplier Name :  <strong>Kala</strong></p>*/}
-                {/*        <p> Account Number :  <strong>Kala</strong></p>*/}
-                {/*        <p> Branch :  <strong>Kala</strong></p>*/}
-                {/*        <p> Total Cost :  <strong>Kala</strong></p>*/}
+                <Model modal={this.state.modal} orderid={this.state.orderid} tot={this.state.tot}  close={this.closePopup} obj={this.state.obj} />
 
-
-                {/*        <FormGroup>*/}
-                {/*            <Label for="exampleText">Text Area</Label>*/}
-                {/*            <Input type="textarea" name="text" id="exampleText" />*/}
-                {/*        </FormGroup>*/}
-                {/*    </ModalBody>*/}
-                {/*    <ModalFooter>*/}
-                {/*        <Button color="primary" onChange={(e) => this.setState({creditNote:e.target.value})}>Make Payment</Button>{' '}*/}
-                {/*        <Button color="secondary" onClick={() => {this.setState({modal:false})}} >Cancel</Button>*/}
-                {/*    </ModalFooter>*/}
-                {/*</Modal>*/}
-
+                </div>
             </div>
         )
     }
