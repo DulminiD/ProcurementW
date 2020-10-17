@@ -4,13 +4,15 @@ import 'bootstrap/dist/css/bootstrap.css';
 import firebase from "../../firebase";
 import Item from "../Modal/item";
 const db = firebase.ref("/item");
+let item = new Item();
 
 export default class ItemService extends Component{
     constructor(props) {
         super(props);
         this.state={
             item:'',
-            itemList:[]
+            itemList:[],
+            iList:[]
         };
         this.handleItem = this.handleItem.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,16 +22,25 @@ export default class ItemService extends Component{
         /*
         Getting the list of available items
          */
-        db.on("value", (items)=>{
-            items.forEach((item) => {
-                this.state.itemList.push(item.val());
-                this.setState({
-                    itemList:this.state.itemList
-                });
-            });
-        });
-
+        this.handleItemObject();
     }
+
+    handleItemObject(){
+        this.setState({
+            itemList:item.getItems()
+        }, ()=>{
+            setTimeout(()=>{
+                this.state.itemList.map(i=>{
+                    console.log(i);
+                    this.state.iList.push(i);
+                });
+                this.setState({
+                    iList:this.state.iList
+                })
+            }, 1000)
+        })
+    }
+
     handleItem(event){
         /*
         Handling the item name added in the form
@@ -37,41 +48,27 @@ export default class ItemService extends Component{
         this.setState({
             item:event.target.value
         })
+
     }
     handleSubmit(e){
         /*
         Saving the added item in the database
          */
         e.preventDefault();
-        this.setState({
-           itemList:[]
-        });
-
-        let item = new Item();
         item.itemID = 'item'+this.state.item;
         item.itemName = this.state.item;
 
-        db.push(item)
-            .then((res) => {
-                console.log("Created new item successfully!");
-                this.setState({
-                    item: '',
-                    itemList:[]
-                });
-                db.on("value", (items)=>{
-                    items.forEach((item) => {
-                        this.state.itemList.push(item.val());
-                        this.setState({
-                            itemList:this.state.itemList
-                        });
-                    });
-                });
-            })
-            .catch((e) => {
-                console.log(e);
-            });
+        item.addItems(item);
+        this.setState({
+            iList:[]
+        });
+        setTimeout(()=>{
+            this.handleItemObject()
+        }, 500)
     }
+
     render() {
+
         return(
             <div style={{height:'50%', width:'50%', marginTop:'5%', marginLeft:'30%', backgroundColor:'#f1f1f1'}}>
                 <div style={{backgroundColor:'#3fb1c6', border: '2px solid black'}}>
@@ -101,7 +98,7 @@ export default class ItemService extends Component{
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {this.state.itemList.map(n => <tr><td>{n.itemName}</td></tr>)}
+                                {this.state.iList.map((n,i) => <tr><td>{n.itemName}</td></tr>)}
                                 </tbody>
                             </Table>
                         </div>

@@ -2,27 +2,41 @@ import React, {Component} from 'react';
 import {Form, Row, Col, Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import firebase from "../../firebase";
+import Management from "../Modal/management";
 const db = firebase.ref("/limit");
+let management = new Management();
 
 export default class LimitService extends Component{
     constructor(props) {
         super(props);
         this.state={
             limit:'',
-            climit:''
+            climit:[],
+            currentLimit:''
         };
         this.handleItem = this.handleItem.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount() {
-        db.on("value", (items)=>{
-            items.forEach((item) => {
-                this.setState({
-                    climit:item.val().limit
-                });
-            });
-        });
+        this.handleItemValue();
+    }
 
+    handleItemValue(){
+        this.setState({
+            climit:management.getLimit()
+        }, ()=>{
+            setTimeout(()=>{
+                this.state.climit.map(i=>{
+                    this.setState({
+                        currentLimit:i.limit
+                    })
+                });
+                this.setState({
+                    currentLimit: this.state.currentLimit
+                })
+            }, 1000);
+
+        });
     }
     handleItem(event){
         this.setState({
@@ -30,21 +44,15 @@ export default class LimitService extends Component{
         })
     }
     handleSubmit(){
-        let limit = {
-            limit: this.state.limit
-        };
-        console.log('Came');
-        db.push(limit)
-            .then((res) => {
-                console.log("Created new limit successfully!");
-                console.log(res);
-                this.setState({
-                    limit: '',
-                });
-            })
-            .catch((e) => {
-                console.log(e);
-            });
+        management.limit= this.state.limit;
+        management.setLimit();
+        this.setState({
+            currentLimit:'',
+            limit:''
+        });
+        setTimeout(()=>{
+            this.handleItemValue();
+        },1000)
     }
     render() {
         return(
@@ -57,7 +65,7 @@ export default class LimitService extends Component{
                         <h4 style={{margin:'5%'}}>The current limit!!</h4>
                         <Form.Group style={{margin:'5%'}} as={Row} controlId="formPlaintextFirstName">
                             <Col sm="10">
-                                <Form.Control disabled type="text" value={this.state.climit} />
+                                <Form.Control disabled type="text" value={this.state.currentLimit} />
                             </Col>
                         </Form.Group>
 
@@ -66,7 +74,7 @@ export default class LimitService extends Component{
                                 SET THE NEW LIMIT
                             </Form.Label>
                             <Col sm="10">
-                                <Form.Control type="text" value={this.state.limit} onChange={this.handleItem} placeholder={this.state.climit} />
+                                <Form.Control type="text" value={this.state.limit} onChange={this.handleItem} />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} controlId="formPlainButton" style={{ margin: '30px' }}>

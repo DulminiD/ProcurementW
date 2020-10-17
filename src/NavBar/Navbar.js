@@ -61,7 +61,7 @@ class Navbar extends React.Component {
                             this.setState({
                                 role:item.val().type
                             }, ()=> {
-                                if (this.state.role == "Manager") {
+                                if (this.state.role === "Manager") {
                                     this.setState({
                                         management: true
                                     })
@@ -75,7 +75,7 @@ class Navbar extends React.Component {
                     });
                 });
             })
-        }, 3000)
+        }, 2000)
     }
 
     render() {

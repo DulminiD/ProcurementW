@@ -2,8 +2,11 @@ import React, {Component} from 'react';
 import {Form, Row, Col, Button, Table} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import firebase from "../../firebase";
+import Site from "../Modal/site";
+import Management from "../Modal/management";
 const db = firebase.ref("/budget");
-const site = firebase.ref("/Sites");
+let site = new Site();
+let management = new Management();
 
 export default class BudgetService extends Component{
     constructor(props) {
@@ -11,7 +14,9 @@ export default class BudgetService extends Component{
         this.state={
             budget:'',
             budgetList:[],
+            bList:[],
             siteList:[],
+            sList:[],
             site:''
         };
         this.handleBudget = this.handleBudget.bind(this);
@@ -19,22 +24,46 @@ export default class BudgetService extends Component{
         this.handleSite = this.handleSite.bind(this);
     }
     componentDidMount() {
-        db.on("value", (budgets)=>{
-            budgets.forEach((budget) => {
-                this.state.budgetList.push(budget.val());
-                this.setState({
-                    budgetList:this.state.budgetList
+        // db.on("value", (budgets)=>{
+        //     budgets.forEach((budget) => {
+        //         this.state.budgetList.push(budget.val());
+        //         this.setState({
+        //             budgetList:this.state.budgetList
+        //         });
+        //     });
+        // });
+
+        this.handleBudgetList();
+
+        this.setState({
+            siteList:site.getSites()
+        }, ()=>{
+            setTimeout(()=>{
+                this.state.siteList.map(i=>{
+                    console.log(i);
+                    this.state.sList.push(i.Address);
                 });
-            });
-        });
-        site.on("value", (budgets)=>{
-            budgets.forEach((budget) => {
-                this.state.siteList.push(budget.key);
                 this.setState({
-                    siteList:this.state.siteList
+                    sList:this.state.sList
+                })
+            }, 2000)
+        })
+
+    }
+    handleBudgetList(){
+        this.setState({
+            budgetList:management.getBudget()
+        }, ()=>{
+            setTimeout(()=>{
+                this.state.budgetList.map(i=>{
+                    console.log(i);
+                    this.state.bList.push(i);
                 });
-            });
-        });
+                this.setState({
+                    bList:this.state.bList
+                })
+            }, 2000)
+        })
     }
 
     handleSite(event){
@@ -48,32 +77,18 @@ export default class BudgetService extends Component{
             budget:event.target.value
         })
     }
-    handleSubmit(){
-        let budget = {
-            budget: this.state.budget,
-            site: this.state.site
-        };
+    handleSubmit(e){
+        e.preventDefault();
+        management.budget = this.state.budget;
+        management.site = this.state.site;
 
-        db.push(budget)
-            .then(() => {
-                console.log("Created new budget successfully!");
-                this.setState({
-                    budget: '',
-                    budgetList:[]
-                });
-                db.on("value", (budgets)=>{
-                    budgets.forEach((budget) => {
-                        this.state.budgetList.push(budget.val());
-                        this.setState({
-                            budgetList:this.state.budgetList
-                        });
-                    });
-                });
-            })
-            .catch((e) => {
-                console.log(e);
-            });
-
+        management.setBudget();
+        this.setState({
+            bList:[]
+        });
+        setTimeout(()=>{
+            this.handleBudgetList()
+        }, 500);
     }
     render() {
         return(
@@ -98,7 +113,7 @@ export default class BudgetService extends Component{
                             <Col sm="10">
                                 <Form.Control required value={this.state.site} as="select" onChange={this.handleSite}>
                                     <option>SELECT</option>
-                                    {this.state.siteList.map((team,i) => <option key={i} value={team}>{team}</option>)}
+                                    {this.state.sList.map((site,i) => <option key={i} value={site}>{site}</option>)}
                                 </Form.Control>
                             </Col>
                         </Form.Group>
@@ -115,7 +130,7 @@ export default class BudgetService extends Component{
                             </tr>
                             </thead>
                             <tbody>
-                                {this.state.budgetList.map(n => <tr><td>{n.budget}</td><td>{n.site}</td></tr>)}
+                                {this.state.bList.map(n => <tr><td>{n.budget}</td><td>{n.site}</td></tr>)}
                             </tbody>
                         </Table>
                         </div>
