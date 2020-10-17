@@ -6,8 +6,36 @@ import { faHome } from '@fortawesome/free-solid-svg-icons'
 import { faMoneyBill } from '@fortawesome/free-solid-svg-icons'
 import { faLayerGroup } from '@fortawesome/free-solid-svg-icons'
 import { faHandPaper } from '@fortawesome/free-solid-svg-icons'
+import firebase from "../firebase";
+import swal from "sweetalert";
+const db = firebase.ref("/users");
 
 class Navbar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state={
+            user:'',
+            role:''
+        }
+    }
+    componentDidMount() {
+        this.setState({
+            user:JSON.parse(localStorage.getItem('userName'))
+        }, ()=>{
+            console.log(this.state.user);
+            db.on("value", (items)=>{
+                items.forEach((item) => {
+                    if(item.val().username === this.state.user){
+                        this.setState({
+                            role:item.val().role
+                        })
+                    }
+                });
+                swal("Login Failed!", "Incorrect User Name and Password!", "error").then(null)
+            });
+        })
+    }
+
     render() {
         return (
             <div>
