@@ -8,6 +8,7 @@ import { faLayerGroup } from '@fortawesome/free-solid-svg-icons'
 import { faHandPaper } from '@fortawesome/free-solid-svg-icons'
 import {Button} from "react-bootstrap";
 import {confirmAlert} from "react-confirm-alert";
+import {faBookmark} from "@fortawesome/free-solid-svg-icons";
 class Navbar extends React.Component {
 
     logout = () => {
@@ -44,7 +45,7 @@ class Navbar extends React.Component {
                         <Link to="/budget"><FontAwesomeIcon icon={faMoneyBill} /><text style={{padding:'20px'}}>Budget</text></Link>
                         <Link to="/item"><FontAwesomeIcon icon={faLayerGroup} /><text style={{padding:'20px'}}>Item</text></Link>
                         <Link to="/limit"><FontAwesomeIcon icon={faHandPaper} /><text style={{padding:'20px'}}>Limit</text></Link>
-                        <Link to="/view-order-status">Orders</Link>
+                        <Link to="/view-order-status"><FontAwesomeIcon icon={faBookmark} /><text style={{padding:'20px'}}>Orders</text></Link>
                         <Link to='/reg'>Register</Link>
                         <Link to='/addsupliers'>Add Suppliers</Link>
                         <Link to='/viewsupliers'>View Supplier</Link>
