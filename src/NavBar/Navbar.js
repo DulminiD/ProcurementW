@@ -100,7 +100,7 @@ class Navbar extends React.Component {
                             <Link to="/limit"><FontAwesomeIcon icon={faHandPaper} /><text style={{padding:'20px'}}>Limit</text></Link>
                         ): null}
                         {this.state.management || this.state.procurement ? (
-                        <Link to="/view-order-status">Orders</Link>
+                            <Link to="/view-order-status"><FontAwesomeIcon icon={faBookmark} /><text style={{padding:'20px'}}>Orders</text></Link>
                         ): null}
                         {this.state.management ? (
                         <Link to='/reg'>Register</Link>
