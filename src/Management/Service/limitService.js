@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {Form, Row, Col, Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import firebase from "../firebase";
+import firebase from "../../firebase";
 const db = firebase.ref("/limit");
 
-export default class Limit extends Component{
+export default class LimitService extends Component{
     constructor(props) {
         super(props);
         this.state={

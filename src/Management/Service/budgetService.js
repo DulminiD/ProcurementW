@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {Form, Row, Col, Button, Table} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import firebase from "../firebase";
+import firebase from "../../firebase";
 const db = firebase.ref("/budget");
 const site = firebase.ref("/Sites");
 
-export default class Budget extends Component{
+export default class BudgetService extends Component{
     constructor(props) {
         super(props);
         this.state={
