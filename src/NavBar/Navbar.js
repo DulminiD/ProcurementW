@@ -16,8 +16,7 @@ class Navbar extends React.Component {
 
     logout = () => {
         localStorage.removeItem('userName');
-        window.location.reload()
-        console.log('lakaaa')
+        window.location.reload();
         confirmAlert({
             title: 'Log Out',
             message: ' Are you sure to logout',
@@ -39,25 +38,42 @@ class Navbar extends React.Component {
         super(props);
         this.state={
             user:'',
-            role:''
+            role:'',
+            management:false,
+            procurement:false
         }
+
     }
+
+
     componentDidMount() {
-        this.setState({
-            user:JSON.parse(localStorage.getItem('userName'))
-        }, ()=>{
-            console.log(this.state.user);
-            db.on("value", (items)=>{
-                items.forEach((item) => {
-                    if(item.val().username === this.state.user){
-                        this.setState({
-                            role:item.val().role
-                        })
-                    }
+        setInterval(() => {
+            this.setState({
+                user:JSON.parse(localStorage.getItem('userName')),
+                procurement:false,
+                management:false
+            }, ()=>{
+                db.on("value", (items)=>{
+                    items.forEach((item) => {
+                        if(item.val().username === this.state.user){
+                            this.setState({
+                                role:item.val().type
+                            }, ()=> {
+                                if (this.state.role == "Manager") {
+                                    this.setState({
+                                        management: true
+                                    })
+                                } else {
+                                    this.setState({
+                                        procurement: true
+                                    })
+                                }
+                            })
+                        }
+                    });
                 });
-                swal("Login Failed!", "Incorrect User Name and Password!", "error").then(null)
-            });
-        })
+            })
+        }, 3000)
     }
 
     render() {
@@ -70,15 +86,32 @@ class Navbar extends React.Component {
                     </div>
                     <div style={{marginTop:'10%'}}>
                         <Link to="/"><FontAwesomeIcon icon={faHome} /><text style={{padding:'20px'}}>Home</text></Link>
-                        <Link to="/budget"><FontAwesomeIcon icon={faMoneyBill} /><text style={{padding:'20px'}}>Budget</text></Link>
-                        <Link to="/item"><FontAwesomeIcon icon={faLayerGroup} /><text style={{padding:'20px'}}>Item</text></Link>
-                        <Link to="/limit"><FontAwesomeIcon icon={faHandPaper} /><text style={{padding:'20px'}}>Limit</text></Link>
-                        <Link to="/view-order-status">Orders</Link>
-                        <Link to='/reg'>Register</Link>
-                        <Link to='/addsupliers'>Add Suppliers</Link>
-                        <Link to='/viewsupliers'>View Supplier</Link>
-                        <Link to='/payment'>Payment </Link>
+                        {this.state.management ? (
+                            <Link to="/budget"><FontAwesomeIcon icon={faMoneyBill} /><text style={{padding:'20px'}}>Budget</text></Link>
+                        ): null}
 
+                        {this.state.management ? (
+                            <Link to="/item"><FontAwesomeIcon icon={faLayerGroup} /><text style={{padding:'20px'}}>Item</text></Link>
+                        ): null}
+
+                        {this.state.management ? (
+                            <Link to="/limit"><FontAwesomeIcon icon={faHandPaper} /><text style={{padding:'20px'}}>Limit</text></Link>
+                        ): null}
+                        {this.state.management || this.state.procurement ? (
+                        <Link to="/view-order-status">Orders</Link>
+                        ): null}
+                        {this.state.management ? (
+                        <Link to='/reg'>Register</Link>
+                        ): null}
+                        {this.state.management || this.state.procurement ? (
+                        <Link to='/addsupliers'>Add Suppliers</Link>
+                        ): null}
+                        {this.state.management || this.state.procurement ? (
+                        <Link to='/viewsupliers'>View Supplier</Link>
+                        ): null}
+                        {this.state.management || this.state.procurement ? (
+                        <Link to='/payment'>Payment </Link>
+                        ): null}
 
                     </div>
                     <Button onClick={() =>this.logout()}>Logout</Button>
