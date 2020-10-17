@@ -6,8 +6,31 @@ import { faHome } from '@fortawesome/free-solid-svg-icons'
 import { faMoneyBill } from '@fortawesome/free-solid-svg-icons'
 import { faLayerGroup } from '@fortawesome/free-solid-svg-icons'
 import { faHandPaper } from '@fortawesome/free-solid-svg-icons'
-
+import {Button} from "react-bootstrap";
+import {confirmAlert} from "react-confirm-alert";
 class Navbar extends React.Component {
+
+    logout = () => {
+        localStorage.removeItem('userName');
+        window.location.reload()
+        console.log('lakaaa')
+        confirmAlert({
+            title: 'Log Out',
+            message: ' Are you sure to logout',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => {
+                        localStorage.removeItem('userName');
+                        window.location.reload()
+                    }
+                },
+                {
+                    label: 'No',
+                }
+            ]
+        });
+    }
     render() {
         return (
             <div>
@@ -22,12 +45,14 @@ class Navbar extends React.Component {
                         <Link to="/item"><FontAwesomeIcon icon={faLayerGroup} /><text style={{padding:'20px'}}>Item</text></Link>
                         <Link to="/limit"><FontAwesomeIcon icon={faHandPaper} /><text style={{padding:'20px'}}>Limit</text></Link>
                         <Link to="/view-order-status">Orders</Link>
-                        <Link to='/login'>Login</Link>
                         <Link to='/reg'>Register</Link>
                         <Link to='/addsupliers'>Add Suppliers</Link>
-                        <Link to='viewsupliers'>View Supplier</Link>
+                        <Link to='/viewsupliers'>View Supplier</Link>
+                        <Link to='/payment'>Payment </Link>
+
 
                     </div>
+                    <Button onClick={() =>this.logout()}>Logout</Button>
                 </div>
             </div>
         )
