@@ -9,8 +9,10 @@ import { faHandPaper } from '@fortawesome/free-solid-svg-icons'
 import {Button} from "react-bootstrap";
 import {confirmAlert} from "react-confirm-alert";
 import firebase from "../firebase";
+import {faBookmark} from "@fortawesome/free-solid-svg-icons";
 import swal from "sweetalert";
 const db = firebase.ref("/users");
+
 
 class Navbar extends React.Component {
 
