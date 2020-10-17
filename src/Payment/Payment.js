@@ -7,6 +7,7 @@ import Loader from 'react-loader-spinner'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 const db = firebase.ref().child('Orders');
 const db1 = firebase.ref().child('suppliers');
+const db2 = firebase.ref().child('payment');
 class Payment extends Component {
 
     constructor() {
@@ -17,18 +18,28 @@ class Payment extends Component {
             modal:false,
             obj : [],
             orderid:'',
-            tot:''
+            tot:'',
+            paid:[]
 
 
         }
     }
 
     componentDidMount() {
+
+        db2.on('value', snapshot => {
+            let paid = [];
+            snapshot.forEach(snap => {
+                paid.push(snap.val().orderid);
+            });
+            this.setState({paid: paid},() =>console.log(this.state.paid));
+
+        })
+
         db.on('value', snapshot => {
             let allOrders = [];
             snapshot.forEach(snap => {
-                console.log(snap.key);
-                if(snap.val().status === 'Placed')
+                if(snap.val().status === 'Placed' && !this.state.paid.includes(snap.val().ID))
                     allOrders.push(snap.val());
             });
             this.setState({orderList: allOrders},() =>console.log(this.state.orderList));
@@ -119,10 +130,7 @@ class Payment extends Component {
     render() {
         if(this.state.orderList.length ===  0)
             return (
-                <Loader
-                    type="Oval" color="#00BFFF" height={80} width={80}
-                    timeout={5000} //5 secs
-                />
+                <h1 className='text-center'>No Items to Pay</h1>
             )
         if(this.state.suppliers.length ===  0)
             return (

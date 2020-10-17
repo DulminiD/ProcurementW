@@ -3,10 +3,11 @@ import React, {Component} from 'react';
 import {Card, CardBody, CardHeader, CardTitle, Col, Row, Input, ListGroup, ListGroupItem} from "reactstrap";
 import {Button} from "react-bootstrap";
 import firebase from "../firebase";
+import Supplier from "./Model/Supplier";
 
 const db = firebase.ref("/suppliers");
 const db1 = firebase.ref("/item");
-
+let supplier = new Supplier()
 class AddSuppliers extends Component {
 
     constructor(props) {
@@ -27,10 +28,15 @@ class AddSuppliers extends Component {
 
 
     componentDidMount() {
+        const uname =  localStorage.getItem('userName')
+        console.log(uname)
+        if(uname === null){
+            this.props.history.push("/login")
+        }
         db1.on("value", (items) => {
             items.forEach((item) => {
                 let obj = {
-                    item :item.val().item,
+                    item :item.val().itemName,
                     unit : null
                 }
                 this.state.itemList.push(obj);
@@ -50,29 +56,26 @@ class AddSuppliers extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        const obj = {
-            sname: this.state.sname,
-            tel: this.state.tel,
-            email: this.state.email,
-            address: this.state.address,
-            accountNo: this.state.accountNo,
-            branch: this.state.branch,
-            itemList: this.state.itemList
-        }
 
-        db.push(obj).then((res) => {
-            console.log("Created new item successfully!");
-            console.log(res);
-        })
-            .catch((e) => {
-                console.log(e);
-            });
+        console.log(this.state.itemList)
+        supplier.supplierName = this.state.sname
+        supplier.telephoneNo = this.state.tel
+        supplier.email = this.state.email
+        supplier.address = this.state.address
+        supplier.accountNo = this.state.accountNo
+        supplier.branch = this.state.branch
+        supplier.itemList = this.state.itemList
+
+
+        supplier.addSupplier()
+        this.props.history.push("/viewsupliers")
 
 
     }
 
     setUnit = (key,val) => {
         let array = this.state.itemList
+        array[key].item = this.state.itemList[key].item
         array[key].unit = val
         this.setState({itemList:array},() => console.log(this.state.itemList))
 

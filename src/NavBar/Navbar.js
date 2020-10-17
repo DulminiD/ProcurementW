@@ -117,7 +117,7 @@ class Navbar extends React.Component {
 
                     </div>
                     <Button  className="pl-3 pr-3 button-t" style={{position:'relative',
-                        marginTop:'100%',marginLeft:'55px'}} onClick={() =>this.logout()}>Logout</Button>
+                        marginTop:'90%',marginLeft:'55px'}} onClick={() =>this.logout()}>Logout</Button>
                 </div>
             </div>
         )
