@@ -3,7 +3,8 @@ import React, {Component} from 'react';
 import {Card, CardBody, CardHeader, CardTitle, Col, Row, Input, ListGroup, ListGroupItem} from "reactstrap";
 import {Button} from "react-bootstrap";
 import firebase from "../firebase";
-
+import Supplier from "./Model/Supplier";
+let supplier = new Supplier()
 const db = firebase.ref("/suppliers");
 const db1 = firebase.ref("/item");
 
@@ -29,50 +30,24 @@ class EditSuppliers extends Component {
 
     componentDidMount() {
 
-        console.log(this.props.match.params.id)
+        const uname =  localStorage.getItem('userName')
+        if(uname === null){
+            this.props.history.push("/login")
+        }
 
-        db.on("value", (items) => {
-            items.forEach((item) => {
-                console.log(item.key)
-                if (item.key === this.props.match.params.id) {
-                    this.setState({data: item.val()}, () => console.log(this.state.data))
-                }
-            });
-        });
+        setTimeout(() => {
+            this.setState({data: supplier.getSupplierbyid(this.props.match.params.id)})
+        },2000)
+
+
     }
 
-    // removeFromList = (index) => {
-    //     console.log(index)
-    //     let a = this.state.itemList
-    //     a.splice(index, 1)
-    //     this.setState({itemList: a})
-    // }
+
 
     onSubmit = (e) => {
          e.preventDefault();
-        // const obj = {
-        //     sname: this.state.sname,
-        //     tel: this.state.tel,
-        //     email: this.state.email,
-        //     address: this.state.address,
-        //     accountNo: this.state.accountNo,
-        //     branch: this.state.branch,
-        //     itemList: this.state.itemList
-        // }
-        //
-        // db.push(obj).then((res) => {
-        //     console.log("Created new item successfully!");
-        //     console.log(res);
-        // })
-        //     .catch((e) => {
-        //         console.log(e);
-        //     });
-
-        db.child(this.props.match.params.id).update(this.state.data).then(() => {
-            this.props.history.push("/viewsupliers")
-        })
-        console.log(this.state.data)
-
+         supplier.updateSupplier(this.props.match.params.id,this.state.data)
+        this.props.history.push("/viewsupliers")
     }
 
     setUnit = (key, val) => {

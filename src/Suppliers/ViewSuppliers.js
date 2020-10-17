@@ -4,27 +4,37 @@ import 'react-table-6/react-table.css'
 import {Card, CardBody, CardHeader, CardTitle, Col, Row} from "reactstrap";
 import {Button} from "react-bootstrap";
 import firebase from "../firebase";
-const db = firebase.ref("/suppliers");
+import Supplier from "./Model/Supplier";
+let supplier = new Supplier()
 class ViewSuppliers extends Component {
 
     constructor() {
         super();
         this.state = {
-            suppliers : []
+            suppliers : [],
+            s:[]
         }
     }
 
     componentDidMount() {
-    db.on("value", (items) => {
-            items.forEach((item) => {
-                let obj = item.val()
-                obj.id = item.key
-                this.state.suppliers.push(obj);
-                this.setState({
-                    suppliers: this.state.suppliers
-                },(() => console.log(this.state.suppliers)));
-            });
-        });
+
+        const uname =  localStorage.getItem('userName')
+        if(uname === null){
+            this.props.history.push("/login")
+        }
+
+            this.setState({suppliers:supplier.getSupplier()},() => {
+                console.log(this.state.suppliers)
+               setTimeout(() => {
+                   this.state.suppliers.map(ob => {
+                       this.state.s.push(ob)
+                       console.log(ob)
+                   })
+
+                   this.setState({s:this.state.s})
+               },2000)
+            })
+
     }
 
 
@@ -105,7 +115,7 @@ class ViewSuppliers extends Component {
                                 </CardHeader>
                                 <CardBody>
                                     <ReactTable
-                                        data={this.state.suppliers}
+                                        data={this.state.s}
                                         columns={columns}
                                         filterable
                                         defaultPageSize={15}

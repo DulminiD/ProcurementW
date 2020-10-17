@@ -30,6 +30,7 @@ class Register extends Component {
         db.push(obj).then((res) => {
             console.log("Created new item successfully!");
             console.log(res);
+            this.props.history.push("/ ")
         })
             .catch((e) => {
                 console.log(e);
