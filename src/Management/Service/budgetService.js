@@ -36,27 +36,22 @@ export default class BudgetService extends Component{
         if(uname === null){
             this.props.history.push("/login")
         }
-        this.handleBudgetList();
 
-        this.setState({
-            siteList:site.getSites()
-        }, ()=>{
-            setTimeout(()=>{
-                this.state.siteList.map(i=>{
-                    console.log(i);
-                    this.state.sList.push(i.Address);
-                });
-                this.setState({
-                    sList:this.state.sList
-                })
-            }, 2000)
-        })
+        this.handleLists();
 
     }
 
     /*
-      Handling the retrived budget list and assigning to values
-       */
+    Template method
+     */
+    handleLists(){
+        this.handleBudgetList();
+        this.handleSiteList();
+    }
+
+    /*
+      Handling the retrieved budget list and assigning to values
+     */
     handleBudgetList(){
 
         this.setState({
@@ -69,6 +64,25 @@ export default class BudgetService extends Component{
                 });
                 this.setState({
                     bList:this.state.bList
+                })
+            }, 2000)
+        })
+    }
+
+    /*
+      Handling the retrieved budget list and assigning to values
+     */
+    handleSiteList(){
+        this.setState({
+            siteList:site.getSites()
+        }, ()=>{
+            setTimeout(()=>{
+                this.state.siteList.map(i=>{
+                    console.log(i);
+                    this.state.sList.push(i.Address);
+                });
+                this.setState({
+                    sList:this.state.sList
                 })
             }, 2000)
         })
@@ -105,7 +119,7 @@ export default class BudgetService extends Component{
             bList:[]
         });
         setTimeout(()=>{
-            this.handleBudgetList()
+            this.handleLists();
         }, 500);
     }
 

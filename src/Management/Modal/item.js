@@ -6,6 +6,7 @@ export default class Item {
     itemID;
     itemName;
     itemPrice;
+    
     /*
    The item details set from the service class are sent to the database
     */
