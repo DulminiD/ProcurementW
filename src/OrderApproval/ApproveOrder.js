@@ -204,16 +204,21 @@ export default class ApproveOrder extends Component{
                                     </Table>
                                 </div></td>
                             </tr>
-                            <tr><td style={{paddingRight:'5%'}} />
-                                <div className="row">
-                                    <div className="col-6" align="center">
-                                        <Button variant="danger" onClick={()=>{this.approveOrder()}}>Approve</Button>
-                                    </div>
-                                    <div className="col-6" align="center">
-                                        <Button variant="primary"  onClick={()=>{this.declinedOrder()}}>Decline</Button>
-                                    </div>
-                                </div>
-                            </tr>
+                            {(() => {
+                                if (this.state.Order.status === 'Pending' || this.state.Order.status === 'Declined') {
+                                    return   <tr><td style={{paddingRight:'5%'}} />
+                                        <div className="row">
+                                            <div className="col-6" align="center">
+                                                <Button variant="danger" onClick={()=>{this.approveOrder()}}>Approve</Button>
+                                            </div>
+                                            <div className="col-6" align="center">
+                                                <Button variant="primary"  onClick={()=>{this.declinedOrder()}}>Decline</Button>
+                                            </div>
+                                        </div>
+                                    </tr>
+                                }
+                            })()}
+
 
                             </tbody>
                         </Table>
