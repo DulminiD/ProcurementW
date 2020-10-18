@@ -23,6 +23,11 @@ export default class LimitService extends Component{
        Getting the list of available items
      */
     componentDidMount() {
+        const uname =  localStorage.getItem('userName');
+        console.log(uname);
+        if(uname === null){
+            this.props.history.push("/login")
+        }
         this.handleItemValue();
     }
 
@@ -60,7 +65,7 @@ export default class LimitService extends Component{
         Saving the added item in the database
      */
     handleSubmit(){
-        management.limit= this.state.limit;
+        management.approval_limit= this.state.limit;
         management.setLimit();
         this.setState({
             currentLimit:'',

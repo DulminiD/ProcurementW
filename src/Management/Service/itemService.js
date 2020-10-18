@@ -27,6 +27,11 @@ export default class ItemService extends Component{
        Getting the list of available items
      */
     componentDidMount() {
+        const uname =  localStorage.getItem('userName');
+        console.log(uname);
+        if(uname === null){
+            this.props.history.push("/login")
+        }
         this.handleItemObject();
     }
 

@@ -7,7 +7,7 @@ const limitdb = firebase.ref("/limit");
 
 export default class Management extends User{
     budget;
-    limit;
+    approval_limit;
     items;
     site;
 
@@ -46,7 +46,7 @@ export default class Management extends User{
     The limit details set from the service class are sent to the database
      */
     setLimit(){
-        f.database().ref('limit/MIwGdpcUND8cGZUXhA4').set({limit: this.limit})
+        f.database().ref('limit/MIwGdpcUND8cGZUXhA4').set({limit: this.approval_limit})
             .then(r  =>{console.log("Created new limit successfully!");})
             .catch((e)=>{
                 console.log(e)

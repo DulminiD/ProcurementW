@@ -10,7 +10,6 @@ import {Button} from "react-bootstrap";
 import {confirmAlert} from "react-confirm-alert";
 import firebase from "../firebase";
 import {faBookmark} from "@fortawesome/free-solid-svg-icons";
-import swal from "sweetalert";
 const db = firebase.ref("/users");
 
 
@@ -89,15 +88,15 @@ class Navbar extends React.Component {
                     <div style={{marginTop:'10%'}}>
                         <Link to="/"><FontAwesomeIcon icon={faHome} /><text style={{padding:'20px'}}>Home</text></Link>
                         {this.state.management ? (
-                            <Link to="/budget"><FontAwesomeIcon icon={faMoneyBill} /><text style={{padding:'20px'}}>Budget</text></Link>
+                            <Link to="/budget"><FontAwesomeIcon icon={faMoneyBill} /><text style={{padding:'18px'}}>Budget</text></Link>
                         ): null}
 
                         {this.state.management ? (
-                            <Link to="/item"><FontAwesomeIcon icon={faLayerGroup} /><text style={{padding:'20px'}}>Item</text></Link>
+                            <Link to="/item"><FontAwesomeIcon icon={faLayerGroup} /><text style={{padding:'22px'}}>Item</text></Link>
                         ): null}
 
                         {this.state.management ? (
-                            <Link to="/limit"><FontAwesomeIcon icon={faHandPaper} /><text style={{padding:'20px'}}>Limit</text></Link>
+                            <Link to="/limit"><FontAwesomeIcon icon={faHandPaper} /><text style={{padding:'22px'}}>Limit</text></Link>
                         ): null}
                         {this.state.management || this.state.procurement ? (
                             <Link to="/view-order-status"><FontAwesomeIcon icon={faBookmark} /><text style={{padding:'20px'}}>Orders</text></Link>
@@ -117,7 +116,7 @@ class Navbar extends React.Component {
 
                     </div>
                     <Button  className="pl-3 pr-3 button-t" style={{position:'relative',
-                        marginTop:'90%',marginLeft:'55px'}} onClick={() =>this.logout()}>Logout</Button>
+                        marginTop:'60%',marginLeft:'55px'}} onClick={() =>this.logout()}>Logout</Button>
                 </div>
             </div>
         )

@@ -31,6 +31,11 @@ export default class BudgetService extends Component{
     Initial value retreival
      */
     componentDidMount() {
+        const uname =  localStorage.getItem('userName');
+        console.log(uname);
+        if(uname === null){
+            this.props.history.push("/login")
+        }
         this.handleBudgetList();
 
         this.setState({
