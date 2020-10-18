@@ -7,3 +7,8 @@ export function getSites() {
     obj = site.getSites();
     return obj;
 }
+
+export function getLength() {
+    let length = site.getSites().length;
+    return length;
+}

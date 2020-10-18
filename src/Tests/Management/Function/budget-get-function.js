@@ -7,3 +7,8 @@ export function getBudget() {
     obj = management.getBudget();
     return obj;
 }
+
+export function getLength() {
+    let length = management.getBudget().length;
+    return length;
+}

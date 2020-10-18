@@ -9,6 +9,6 @@ export function getItems() {
 }
 
 export function getLength() {
-    let length = item.getItems();
+    let length = item.getItems().length;
     return length;
 }
