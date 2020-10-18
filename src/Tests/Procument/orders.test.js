@@ -1,4 +1,4 @@
-import {displayOrderDetails} from '../../OrderApproval/Functions/orders-get-functions'
+import {displayOrderDetails} from './Functions/orders-get-functions'
 
 
 var assert = require('assert');

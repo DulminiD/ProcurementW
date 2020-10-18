@@ -6,15 +6,14 @@ import LimitService from "./Management/Service/limitService";
 import ItemService from "./Management/Service/itemService";
 import BudgetService from "./Management/Service/budgetService";
 import Home from "./Home/home";
-import ApproveOrder from "./OrderApproval/ApproveOrder";
 import Login from "./Authentication/Login";
 import Register from "./Authentication/Register";
 import AddSuppliers from "./Suppliers/AddSuppliers";
 import ViewSuppliers from "./Suppliers/ViewSuppliers";
 import EditSuppliers from "./Suppliers/EditSuppliers";
 import Payment from "./Payment/Payment";
-import {Button} from "react-bootstrap";
 import ViewOrderService from "./OrderApproval/Service/viewOrderService";
+import ApproveOrderService from "./OrderApproval/Service/approveOrderService";
 
 class App extends React.Component {
 
@@ -41,7 +40,7 @@ class App extends React.Component {
                     <Route path="/budget" exact component={BudgetService}/>
                     <Route path="/item" exact component={ItemService}/>
                     <Route path="/view-order-status" exact component={ViewOrderService}/>
-                    <Route path="/approve-order/:id" exact component={ApproveOrder}/>
+                    <Route path="/approve-order/:id" exact component={ApproveOrderService}/>
                     <Route path="/login" exact component={Login}/>
                     <Route path="/reg" exact component={Register}/>
                     <Route path='/addsupliers' exact component={AddSuppliers}/>

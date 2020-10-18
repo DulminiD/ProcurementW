@@ -2,8 +2,6 @@ import firebase from '../../firebase'
 const db = firebase.ref();
 
 export default class Order {
-    orderID;
-    status;
 
 
 
@@ -18,6 +16,7 @@ export default class Order {
         });
         return allOrders;
     }
+
 
 
 }
