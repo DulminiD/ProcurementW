@@ -3,6 +3,7 @@ import {FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader} fro
 import {Button} from "react-bootstrap";
 import Payments from "./Modal/Payments";
 import swal from "sweetalert";
+import emailjs from "emailjs-com";
 
 let payment = new Payments()
 class Model extends Component {
@@ -14,7 +15,20 @@ class Model extends Component {
         }
     }
 
+    sendDetails(){
+        let templateParams = {
+            from_name:  "procument48@gmail.com",
+            to_name: this.props.obj.email,
+            message: "this message is regarding the payment made for" +this.props.orderid
+        }
+        emailjs.send(
+            'service_glw7ttc',
+            'template_3ok1r3p',
+            templateParams,
+            'user_fCwqy7oGxyWgxZ9FZHTD2'
+        )
 
+    }
 
     makePayment = (e) => {
         e.preventDefault();
@@ -33,7 +47,8 @@ class Model extends Component {
         payment.creditNote = this.state.creditNote
 
         payment.makePayment()
-        swal("Success!", "Make payment successfully", "success").then(() => window.location.reload())
+        this.sendDetails()
+        swal("Success!", "Make payment successfully and send mail to supplier", "success").then(() => window.location.reload())
 
     }
 
