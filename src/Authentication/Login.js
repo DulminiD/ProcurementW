@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import swal from "sweetalert";
-import {Card, CardBody, CardHeader, CardTitle, Col, Row} from "reactstrap";
+import {Card, CardBody, CardHeader, CardTitle, Col, Row,Input} from "reactstrap";
 import LoginImg from './download.svg'
-import Input from "reactstrap/es/Input";
 import {Button} from "react-bootstrap";
 import firebase from "../firebase";
 const db = firebase.ref("/users");
@@ -55,14 +54,13 @@ class Login extends Component {
 
     render() {
         return (
-            <div className='mt-5'>
-                <div className="container ">
+            <div className='mt-5 ml-5'>
+                <div className="container " style={{backgroundColor: '#eaefea'}}>
                     <Row>
                         <Col>
-                            <Card className="card-user" style={{ backgroundColor:'#eaefea'}}>
-                                <CardHeader>
-                                    <CardTitle tag="h3" style={{textAlign: 'center'}}>Delivery Order Monitor
-                                        Protal</CardTitle>
+                            <Card className="card-user" style={{ backgroundColor:'white'}}>
+                                <CardHeader style={{ backgroundColor:'#3fb1c6'}}>
+                                    <CardTitle tag="h3" style={{textAlign: 'center'}}>Login</CardTitle>
                                 </CardHeader>
                                 <CardBody style={{marginLeft: 'auto', marginRight: 'auto'}}>
                                     <Row>

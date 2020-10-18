@@ -4,6 +4,7 @@ import {Card, CardBody, CardHeader, CardTitle, Col, Row, Input, ListGroup, ListG
 import {Button} from "react-bootstrap";
 import firebase from "../firebase";
 import Supplier from "./Model/Supplier";
+import swal from "sweetalert";
 
 const db = firebase.ref("/suppliers");
 const db1 = firebase.ref("/item");
@@ -68,8 +69,7 @@ class AddSuppliers extends Component {
 
 
         supplier.addSupplier()
-        this.props.history.push("/viewsupliers")
-
+        swal("Success!", "Successfully add new supplier", "success").then(() => this.props.history.push("/viewsupliers"))
 
     }
 
@@ -83,13 +83,13 @@ class AddSuppliers extends Component {
 
     render() {
         return (
-            <div className='mt-5'>
+            <div className='mt-5 ml-5' style={{backgroundColor: '#eaefea'}}>
                 <div className="container ">
                     <Row>
                         <Col>
-                            <Card style={{backgroundColor: '#eaefea', marginLeft: 'auto', marginRight: 'auto'}}>
-                                <CardHeader>
-                                    <CardTitle tag="h3" style={{textAlign: 'center'}}>Add Suppliers</CardTitle>
+                            <Card style={{backgroundColor: 'white', marginLeft: 'auto', marginRight: 'auto'}}>
+                                <CardHeader style={{backgroundColor: '#3fb1c6'}}>
+                                    <CardTitle tag="h3" style={{textAlign: 'center'}}>Add Supplier</CardTitle>
                                 </CardHeader>
                                 <CardBody>
 

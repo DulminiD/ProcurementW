@@ -92,7 +92,7 @@ class ViewSuppliers extends Component {
             Cell: props => {
                 return (
                     <div>
-                        <Button size="small" onClick={(e) => {
+                        <Button size="small" className="pl-3 pr-3 button-t" onClick={(e) => {
                             this.props.history.push("/editsupliers/" + props.original.id)
                         }}>Edit</Button>
                     </div>
@@ -106,11 +106,11 @@ class ViewSuppliers extends Component {
 
 
 
-                <div className="container mt-5">
+                <div className="container mt-5" style={{backgroundColor: '#eaefea'}}>
                     <Row>
                         <Col>
-                            <Card>
-                                <CardHeader>
+                            <Card style={{backgroundColor: 'white', marginLeft: 'auto', marginRight: 'auto'}}>
+                                <CardHeader style={{backgroundColor: '#3fb1c6'}}>
                                     <CardTitle tag="h4" style={{textAlign: 'center'}}>Suppliers</CardTitle>
                                 </CardHeader>
                                 <CardBody>
