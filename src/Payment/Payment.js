@@ -110,11 +110,13 @@ class Payment extends Component {
         let index = this.state.orderList.findIndex(x => x.ID ===oid)
         let index1 = this.state.suppliers.findIndex(x => x.sname ===sid)
         this.state.orderList[index].item.map(i => {
-            this.state.suppliers[index1].itemList.map(l => {
-                if(l.item === i.item){
-                    price = price + (i.quantity * l.unit)
-                }
-            })
+            if(this.state.suppliers[index1].itemList !== undefined) {
+                this.state.suppliers[index1].itemList.map(l => {
+                    if (l.item === i.item) {
+                        price = price + (i.quantity * l.unit)
+                    }
+                })
+            }
         })
         return price
     }
@@ -137,10 +139,7 @@ class Payment extends Component {
             )
         if(this.state.suppliers.length ===  0)
             return (
-                <Loader
-                    type="Oval" color="#00BFFF" height={80} width={80}
-                    timeout={5000} //5 secs
-                />
+                <h1 className='text-center'>Loading Supplier Detials</h1>
             )
         return (
             <div style={{height:'80%', width:'70%', marginTop:'5%', marginLeft:'20%', backgroundColor:'#f1f1f1'}}>
