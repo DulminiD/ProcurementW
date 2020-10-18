@@ -4,6 +4,8 @@ import {Card, CardBody, CardHeader, CardTitle, Col, Row, Input, ListGroup, ListG
 import {Button} from "react-bootstrap";
 import firebase from "../firebase";
 import Supplier from "./Model/Supplier";
+import swal from "sweetalert";
+
 let supplier = new Supplier()
 const db = firebase.ref("/suppliers");
 const db1 = firebase.ref("/item");
@@ -30,24 +32,23 @@ class EditSuppliers extends Component {
 
     componentDidMount() {
 
-        const uname =  localStorage.getItem('userName')
-        if(uname === null){
+        const uname = localStorage.getItem('userName')
+        if (uname === null) {
             this.props.history.push("/login")
         }
 
         setTimeout(() => {
             this.setState({data: supplier.getSupplierbyid(this.props.match.params.id)})
-        },2000)
+        }, 2000)
 
 
     }
 
 
-
     onSubmit = (e) => {
-         e.preventDefault();
-         supplier.updateSupplier(this.props.match.params.id,this.state.data)
-        this.props.history.push("/viewsupliers")
+        e.preventDefault();
+        supplier.updateSupplier(this.props.match.params.id, this.state.data)
+        swal("Success!", "Successfully edit  supplier", "success").then(() => this.props.history.push("/viewsupliers"))
     }
 
     setUnit = (key, val) => {
@@ -59,12 +60,12 @@ class EditSuppliers extends Component {
 
     render() {
         return (
-            <div className='mt-5 ml-auto mr-auto'>
+            <div className='mt-5 ml-auto mr-auto' style={{backgroundColor: '#eaefea'}}>
                 <div className="container ">
                     <Row>
                         <Col>
-                            <Card style={{backgroundColor: '#eaefea', marginLeft: 'auto', marginRight: 'auto'}}>
-                                <CardHeader>
+                            <Card style={{backgroundColor: 'white', marginLeft: 'auto', marginRight: 'auto'}}>
+                                <CardHeader style={{backgroundColor: '#3fb1c6'}}>
                                     <CardTitle tag="h3" style={{textAlign: 'center'}}>Edit Suppliers</CardTitle>
                                 </CardHeader>
                                 <CardBody>
@@ -189,44 +190,6 @@ class EditSuppliers extends Component {
                                                 </div>
                                             </Col>
                                         </Row>
-
-                                        {/*<Row className={'mt-3'}>*/}
-                                        {/*    <Col md={5} style={{marginRight: 'auto', marginLeft: 'auto'}}>*/}
-
-                                        {/*        <ListGroup>*/}
-
-                                        {/*            {*/}
-                                        {/*                this.state.itemList.map((val, key) => {*/}
-                                        {/*                    return <ListGroupItem className='d-inline-block' key={key}>*/}
-                                        {/*                        <p>{val.item}</p>*/}
-                                        {/*                        <Col md={6}>*/}
-                                        {/*                            <div className="field">*/}
-                                        {/*                                <div className="control">*/}
-                                        {/*                                    <label className={'font-weight-bold'}*/}
-                                        {/*                                           style={{color: 'black'}}>Price per*/}
-                                        {/*                                        Unit</label>*/}
-                                        {/*                                    <Input type="number" name="pricePerUnit"*/}
-                                        {/*                                           id="exampleEmail"*/}
-                                        {/*                                           placeholder="Price per Unit"*/}
-                                        {/*                                           onChange={(e) => {*/}
-                                        {/*                                               this.setUnit(key,e.target.value)*/}
-                                        {/*                                           }}/>*/}
-                                        {/*                                </div>*/}
-                                        {/*                            </div>*/}
-                                        {/*                        </Col>*/}
-                                        {/*                        <button type="button" className="close"*/}
-                                        {/*                                aria-label="Close"*/}
-                                        {/*                                onClick={() => this.removeFromList(key)}>*/}
-                                        {/*                            <span aria-hidden="true">&times;</span>*/}
-                                        {/*                        </button>*/}
-                                        {/*                    </ListGroupItem>*/}
-                                        {/*                })*/}
-                                        {/*            }*/}
-                                        {/*        </ListGroup>*/}
-
-
-                                        {/*    </Col>*/}
-                                        {/*</Row>*/}
 
 
                                         <Row className={'mt-3'}>

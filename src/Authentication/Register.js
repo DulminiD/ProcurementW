@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 //import swal from "sweetalert";
-import {Card, CardBody, CardHeader, CardTitle, Col, Row,Input} from "reactstrap";
+import {Card, CardBody, CardHeader, CardTitle, Col, Row, Input} from "reactstrap";
 import LoginImg from './download.svg'
 import {Button} from "react-bootstrap";
 import firebase from "../firebase";
+import swal from "sweetalert";
+
 const db = firebase.ref("/users");
 
 class Register extends Component {
@@ -13,7 +15,7 @@ class Register extends Component {
         this.state = {
             uname: '',
             pwd: '',
-            type:''
+            type: ''
         }
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -22,18 +24,18 @@ class Register extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         const obj = {
-            username : this.state.uname,
-            password : this.state.pwd,
-            type : this.state.type
+            username: this.state.uname,
+            password: this.state.pwd,
+            type: this.state.type
         }
 
         db.push(obj).then((res) => {
             console.log("Created new item successfully!");
-            console.log(res);
-            this.props.history.push("/ ")
+            swal("Success!", "Successfully add new user", "success").then(() => this.props.history.push("/"))
+
         })
             .catch((e) => {
-                console.log(e);
+                swal("Failed!", "Failed to save data", "error").then(null)
             });
 
 
@@ -41,14 +43,13 @@ class Register extends Component {
 
     render() {
         return (
-            <div className='mt-5'>
-                <div className="container ">
+            <div className='mt-5 ml-5'>
+                <div className="container " style={{backgroundColor: '#eaefea'}}>
                     <Row>
                         <Col>
-                            <Card className="card-user" style={{ backgroundColor:'#eaefea'}}>
-                                <CardHeader>
-                                    <CardTitle tag="h3" style={{textAlign: 'center'}}>Delivery Order Monitor
-                                        Protal</CardTitle>
+                            <Card className="card-user" style={{backgroundColor: 'white'}}>
+                                <CardHeader style={{backgroundColor: '#3fb1c6'}}>
+                                    <CardTitle tag="h3" style={{textAlign: 'center'}}>Register New User</CardTitle>
                                 </CardHeader>
                                 <CardBody style={{marginLeft: 'auto', marginRight: 'auto'}}>
                                     <Row>
@@ -94,9 +95,10 @@ class Register extends Component {
                                                     <div className="control">
                                                         <label className={'font-weight-bold'}
                                                                style={{color: 'black'}}>Role Type</label>
-                                                        <Input type="select" name="type" id="exampleSelect" onChange={(e) => {
-                                                            this.setState({type:e.target.value})
-                                                        }}>
+                                                        <Input type="select" name="type" id="exampleSelect"
+                                                               onChange={(e) => {
+                                                                   this.setState({type: e.target.value})
+                                                               }}>
                                                             <option>Select</option>
                                                             <option value={'Manager'}>Manager</option>
                                                             <option value={'PS'}>Procurement Staff</option>

@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import {FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import {Button} from "react-bootstrap";
-import firebase from "../firebase";
-const db = firebase.ref().child('payment');
+import Payments from "./Modal/Payments";
+import swal from "sweetalert";
+
+let payment = new Payments()
 class Model extends Component {
 
     constructor() {
@@ -23,20 +25,22 @@ class Model extends Component {
             creditNote:this.state.creditNote
         }
 
-        db.push(obj).then((res) => {
-            console.log(res);
-            window.location.reload()
-        })
-            .catch((e) => {
-                console.log(e);
-            });
+        payment.orderID = this.props.orderid
+        payment.supplierName = this.props.obj.sname
+        payment.amount = this.props.tot
+        payment.accountNo = this.props.obj.accountNo
+        payment.branch = this.props.obj.branch
+        payment.creditNote = this.state.creditNote
+
+        payment.makePayment()
+        swal("Success!", "Make payment successfully", "success").then(() => window.location.reload())
 
     }
 
     render() {
         return (
             <div>
-                <Modal isOpen={this.props.modal} >
+                <Modal isOpen={this.props.modal} className='align-items-center justify-content-center' >
                     <ModalHeader>Make Payment</ModalHeader>
                     <ModalBody>
                         <p> Supplier Name :  <strong>{this.props.obj.sname}</strong></p>
@@ -46,7 +50,7 @@ class Model extends Component {
 
 
                         <FormGroup>
-                            <Label for="exampleText">Text Area</Label>
+                            <Label for="exampleText">Credit Note</Label>
                             <Input type="textarea" name="text" id="exampleText" onChange={(e) => this.setState({creditNote:e.target.value})}/>
                         </FormGroup>
                     </ModalBody>

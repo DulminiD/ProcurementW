@@ -106,11 +106,11 @@ class ViewSuppliers extends Component {
 
 
 
-                <div className="container mt-5">
+                <div className="container mt-5" style={{backgroundColor: '#eaefea'}}>
                     <Row>
                         <Col>
-                            <Card>
-                                <CardHeader>
+                            <Card style={{backgroundColor: 'white', marginLeft: 'auto', marginRight: 'auto'}}>
+                                <CardHeader style={{backgroundColor: '#3fb1c6'}}>
                                     <CardTitle tag="h4" style={{textAlign: 'center'}}>Suppliers</CardTitle>
                                 </CardHeader>
                                 <CardBody>

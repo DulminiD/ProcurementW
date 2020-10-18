@@ -5,9 +5,11 @@ import moment from "moment";
 import Model from "./Model";
 import Loader from 'react-loader-spinner'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import Supplier from "../Suppliers/Model/Supplier";
 const db = firebase.ref().child('Orders');
 const db1 = firebase.ref().child('suppliers');
 const db2 = firebase.ref().child('payment');
+
 class Payment extends Component {
 
     constructor() {
@@ -26,6 +28,17 @@ class Payment extends Component {
     }
 
     componentDidMount() {
+
+        db1.on("value", (items) => {
+            items.forEach((item) => {
+                let obj = item.val()
+                obj.id = item.key
+                this.state.suppliers.push(obj);
+                this.setState({
+                    suppliers: this.state.suppliers
+                },(() => console.log(this.state.suppliers)));
+            });
+        });
 
         db2.on('value', snapshot => {
             let paid = [];
@@ -46,60 +59,51 @@ class Payment extends Component {
 
         })
 
-        db1.on("value", (items) => {
-            items.forEach((item) => {
-                let obj = item.val()
-                obj.id = item.key
-                this.state.suppliers.push(obj);
-                this.setState({
-                    suppliers: this.state.suppliers
-                },(() => console.log(this.state.suppliers)));
-            });
-        });
-    }
-
-    getTotalCost = (item,supplier) => {
-        let tot = 0;
-        item.map(val => {
-            let unit = 0
-            this.state.suppliers.map(val => {
-                if(val.sname === supplier){
-                    val.itemList.map(i => {
-                        if(i.item ===  val.item) {
-                            if (i.unit === undefined) {
-                                unit = 0
-                            }
-                            else {
-                                unit = parseFloat(i.unit)
-                            }
-                        }
-                    })
-                }
-            })
-
-            tot = tot + ( parseFloat(val.quantity) * unit)
-        })
-        return tot
-    }
-
-    getUnitBySup = (sup,item) => {
-
-      this.state.suppliers.map(val => {
-            if(val.sname === sup){
-                val.itemList.map(i => {
-                    if(i.item ===  item) {
-                        if (i.unit === undefined) {
-                           return 0
-                        }
-                        else {
-                            return i.unit
-                        }
-                    }
-                })
-            }
-        })
 
     }
+
+    // getTotalCost = (item,supplier) => {
+    //     let tot = 0;
+    //     item.map(val => {
+    //         let unit = 0
+    //         this.state.suppliers.map(val => {
+    //             if(val.sname === supplier){
+    //                 val.itemList.map(i => {
+    //                     if(i.item ===  val.item) {
+    //                         if (i.unit === undefined) {
+    //                             unit = 0
+    //                         }
+    //                         else {
+    //                             unit = parseFloat(i.unit)
+    //                         }
+    //                     }
+    //                 })
+    //             }
+    //         })
+    //
+    //         tot = tot + ( parseFloat(val.quantity) * unit)
+    //     })
+    //     return tot
+    // }
+    //
+    // getUnitBySup = (sup,item) => {
+    //
+    //   this.state.suppliers.map(val => {
+    //         if(val.sname === sup){
+    //             val.itemList.map(i => {
+    //                 if(i.item ===  item) {
+    //                     if (i.unit === undefined) {
+    //                        return 0
+    //                     }
+    //                     else {
+    //                         return i.unit
+    //                     }
+    //                 }
+    //             })
+    //         }
+    //     })
+    //
+    // }
 
 
     getTot = (oid,sid) => {
@@ -130,7 +134,7 @@ class Payment extends Component {
     render() {
         if(this.state.orderList.length ===  0)
             return (
-                <h1 className='text-center'>No Items to Pay</h1>
+                <h1 className='text-center'>No Orders to Pay</h1>
             )
         if(this.state.suppliers.length ===  0)
             return (
@@ -172,7 +176,7 @@ class Payment extends Component {
                             <td>{this.getTot(orders.ID,orders.supplierID)}</td>
                             <td>
 
-                                    <Button variant="outline-primary" className="pl-3 pr-3" onClick={() => {
+                                    <Button  className="pl-3 pr-3 button-t" onClick={() => {
                                         this.setSupplier(orders.supplierID)
                                         this.setState({orderid:orders.ID,tot :this.getTot(orders.ID,orders.supplierID),modal:true})}}>Make Payment</Button>
 

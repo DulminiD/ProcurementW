@@ -9,7 +9,7 @@ import { faHandPaper } from '@fortawesome/free-solid-svg-icons'
 import {Button} from "react-bootstrap";
 import {confirmAlert} from "react-confirm-alert";
 import firebase from "../firebase";
-import {faBookmark} from "@fortawesome/free-solid-svg-icons";
+import {faBookmark,faPlusCircle,faRegistered,faStreetView,faMoneyCheck} from "@fortawesome/free-solid-svg-icons";
 import swal from "sweetalert";
 const db = firebase.ref("/users");
 
@@ -103,16 +103,16 @@ class Navbar extends React.Component {
                             <Link to="/view-order-status"><FontAwesomeIcon icon={faBookmark} /><text style={{padding:'20px'}}>Orders</text></Link>
                         ): null}
                         {this.state.management ? (
-                        <Link to='/reg'>Register</Link>
+                        <Link to='/reg'><FontAwesomeIcon icon={faRegistered} /><text style={{padding:'20px'}}>Register</text></Link>
                         ): null}
                         {this.state.management || this.state.procurement ? (
-                        <Link to='/addsupliers'>Add Suppliers</Link>
+                        <Link to='/addsupliers'><FontAwesomeIcon icon={faPlusCircle} /><text style={{padding:'10px'}}>New Supplier</text></Link>
                         ): null}
                         {this.state.management || this.state.procurement ? (
-                        <Link to='/viewsupliers'>View Supplier</Link>
+                        <Link to='/viewsupliers'><FontAwesomeIcon icon={faStreetView} /><text style={{padding:'10px'}}>View Suppliers</text></Link>
                         ): null}
                         {this.state.management || this.state.procurement ? (
-                        <Link to='/payment'>Payment </Link>
+                        <Link to='/payment'><FontAwesomeIcon icon={faMoneyCheck} /><text style={{padding:'20px'}}>Payments</text> </Link>
                         ): null}
 
                     </div>
