@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import {Form, Row, Col, Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import firebase from "../../firebase";
 import Management from "../Modal/management";
-const db = firebase.ref("/limit");
 
 /*
 Creating a management instance
@@ -72,6 +70,7 @@ export default class LimitService extends Component{
             this.handleItemValue();
         },1000)
     }
+
     render() {
         return(
             <div style={{height:'50%', width:'50%', marginTop:'5%', marginLeft:'30%', backgroundColor:'white'}}>
