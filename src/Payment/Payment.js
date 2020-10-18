@@ -5,7 +5,6 @@ import moment from "moment";
 import Model from "./Model";
 import Loader from 'react-loader-spinner'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
-import Supplier from "../Suppliers/Model/Supplier";
 const db = firebase.ref().child('Orders');
 const db1 = firebase.ref().child('suppliers');
 const db2 = firebase.ref().child('payment');

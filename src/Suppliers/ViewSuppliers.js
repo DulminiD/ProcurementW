@@ -92,7 +92,7 @@ class ViewSuppliers extends Component {
             Cell: props => {
                 return (
                     <div>
-                        <Button size="small" onClick={(e) => {
+                        <Button size="small" className="pl-3 pr-3 button-t" onClick={(e) => {
                             this.props.history.push("/editsupliers/" + props.original.id)
                         }}>Edit</Button>
                     </div>

@@ -20,6 +20,13 @@ class Register extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    componentDidMount() {
+        const uname =  localStorage.getItem('userName')
+        console.log(uname)
+        if(uname === null){
+            this.props.history.push("/login")
+        }
+    }
 
     onSubmit = (e) => {
         e.preventDefault();

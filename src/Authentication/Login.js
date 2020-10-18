@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import swal from "sweetalert";
-import {Card, CardBody, CardHeader, CardTitle, Col, Row} from "reactstrap";
+import {Card, CardBody, CardHeader, CardTitle, Col, Row,Input} from "reactstrap";
 import LoginImg from './download.svg'
-import Input from "reactstrap/es/Input";
 import {Button} from "react-bootstrap";
 import firebase from "../firebase";
 const db = firebase.ref("/users");
