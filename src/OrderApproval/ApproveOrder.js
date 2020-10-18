@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Table} from "react-bootstrap";
 import firebase from "../firebase";
-import {Button} from 'react-bootstrap'
+import {Button} from 'react-bootstrap';
+import emailjs from 'emailjs-com';
 const db = firebase.ref();
 
 export default class ApproveOrder extends Component{
@@ -13,6 +14,7 @@ export default class ApproveOrder extends Component{
             Items:[],
             orderItems:[],
             SItems:[],
+            supplierEmail:'',
             budgetLimit:0,
             totPrice:0,
             unitPriceInvalid:false
@@ -44,13 +46,18 @@ export default class ApproveOrder extends Component{
 
         db.child('suppliers').on('value', snapshot => {
             let selectSuppliers = [];
+            let email = '';
             snapshot.forEach(snap => {
                 if(snap.val().sname == this.state.Order.supplierID){
                     //  selectSuppliers.push(snap.val().itemList);
+                    email = snap.val().email
                     selectSuppliers = snap.val().itemList
                 }
             });
-
+            this.setState({
+                SItems:selectSuppliers,
+                supplierEmail: email
+            },()=>{console.log(this.state.SItems)})
         })
 
         db.child('budget').on('value', snapshot => {
@@ -61,33 +68,33 @@ export default class ApproveOrder extends Component{
                 console.log("budget limit is" + this.state.budgetLimit)
             });
 
+            let price =0;
 
-        })
+            this.state.Items.map(rr => {
+                this.state.SItems.map(ss=>{
+                    if(rr.item == ss.item){
+                        console.log(rr.item + " filter wenne meka ")
+                        if(ss.unit == undefined){
+                            console.log("cannot to undefined")
+                            this.setState({
+                                unitPriceInvalid:true
+                            })
+                        }else{
+                            price = price + (rr.quantity * ss.unit)
 
-        let price =0;
-
-        this.state.Items.map(rr => {
-            this.state.SItems.map(ss=>{
-                if(rr.item == ss.item){
-                    console.log(rr.item + " filter wenne meka ")
-                    if(ss.unit == undefined){
-                        console.log("cannot to undefined")
-                        this.setState({
-                            unitPriceInvalid:true
-                        })
-                    }else{
-                        price = price + (rr.quantity * ss.unit)
+                        }
 
                     }
-
-                }
-            })
+                })
 
 
-        });
+            });
 
-        this.setState({totPrice:price})
-        console.log(" filter wechi eke price eka " + this.state.totPrice)
+            this.setState({totPrice:price})
+            console.log(" filter wechi eke price eka " + this.state.totPrice)
+
+
+        })
 
 
 
@@ -102,6 +109,21 @@ export default class ApproveOrder extends Component{
         return [date.getFullYear(), mnth, day].join("-")
     }
 
+    sendDetails(){
+        let templateParams = {
+            from_name:  "procument48@gmail.com",
+            to_name: this.state.supplierEmail,
+            message: "this message is regarding the order made for" +this.state.Order.ID+"on the date of"+
+                this.convert(this.state.Order.date)
+        }
+        emailjs.send(
+            'service_glw7ttc',
+            'template_3ok1r3p',
+            templateParams,
+            'user_fCwqy7oGxyWgxZ9FZHTD2'
+        )
+
+    }
 
     approveOrder(){
 
@@ -113,6 +135,8 @@ export default class ApproveOrder extends Component{
                     console.log(err)
                 else
                     console.log("Successful status updated !!!");
+            }).then(()=>{
+                this.sendDetails();
             })
 
         }else{
