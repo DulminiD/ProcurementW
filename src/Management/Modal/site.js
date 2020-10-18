@@ -5,6 +5,9 @@ export default class Site {
     siteID;
     siteName;
 
+    /*
+    Site details are retrieved from the database
+     */
     getSites(){
         let siteArray = [];
         db.on("value", (items)=>{

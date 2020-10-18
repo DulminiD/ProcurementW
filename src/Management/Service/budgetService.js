@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
 import {Form, Row, Col, Button, Table} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import firebase from "../../firebase";
 import Site from "../Modal/site";
 import Management from "../Modal/management";
-const db = firebase.ref("/budget");
+
+
+/*
+Creating instances of modal classes
+ */
 let site = new Site();
 let management = new Management();
 
@@ -23,16 +26,11 @@ export default class BudgetService extends Component{
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSite = this.handleSite.bind(this);
     }
-    componentDidMount() {
-        // db.on("value", (budgets)=>{
-        //     budgets.forEach((budget) => {
-        //         this.state.budgetList.push(budget.val());
-        //         this.setState({
-        //             budgetList:this.state.budgetList
-        //         });
-        //     });
-        // });
 
+    /*
+    Initial value retreival
+     */
+    componentDidMount() {
         this.handleBudgetList();
 
         this.setState({
@@ -50,7 +48,12 @@ export default class BudgetService extends Component{
         })
 
     }
+
+    /*
+      Handling the retrived budget list and assigning to values
+       */
     handleBudgetList(){
+
         this.setState({
             budgetList:management.getBudget()
         }, ()=>{
@@ -66,17 +69,27 @@ export default class BudgetService extends Component{
         })
     }
 
+    /*
+    Handling the site onchange
+     */
     handleSite(event){
         this.setState({
             site:event.target.value
         })
     }
 
+    /*
+    Hading the budget on change
+     */
     handleBudget(event){
         this.setState({
             budget:event.target.value
         })
     }
+
+    /*
+    Calling the setbudget method in the management modal class
+     */
     handleSubmit(e){
         e.preventDefault();
         management.budget = this.state.budget;
@@ -90,9 +103,10 @@ export default class BudgetService extends Component{
             this.handleBudgetList()
         }, 500);
     }
+
     render() {
         return(
-            <div style={{height:'50%', width:'50%', marginTop:'5%', marginLeft:'30%', backgroundColor:'#f1f1f1'}}>
+            <div style={{height:'50%', width:'50%', marginTop:'5%', marginLeft:'30%', backgroundColor:'white'}}>
                 <div style={{backgroundColor:'#3fb1c6', border: '2px solid black'}}>
                     <p style={{marginLeft:'40%', color: 'white', fontSize:'20px', marginTop:'3%'}}>BUDGET</p>
                 </div>
@@ -130,7 +144,7 @@ export default class BudgetService extends Component{
                             </tr>
                             </thead>
                             <tbody>
-                                {this.state.bList.map(n => <tr><td>{n.budget}</td><td>{n.site}</td></tr>)}
+                                {this.state.bList.map(n => <tr><td>{n.site}</td><td>{n.budget}</td></tr>)}
                             </tbody>
                         </Table>
                         </div>

@@ -4,6 +4,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 import firebase from "../../firebase";
 import Item from "../Modal/item";
 const db = firebase.ref("/item");
+
+/*
+Creating instances
+ */
 let item = new Item();
 
 export default class ItemService extends Component{
@@ -18,13 +22,17 @@ export default class ItemService extends Component{
         this.handleSubmit = this.handleSubmit.bind(this);
 
     }
+
+    /*
+       Getting the list of available items
+     */
     componentDidMount() {
-        /*
-        Getting the list of available items
-         */
         this.handleItemObject();
     }
 
+    /*
+    Handling data sent from the modal class
+     */
     handleItemObject(){
         this.setState({
             itemList:item.getItems()
@@ -41,19 +49,20 @@ export default class ItemService extends Component{
         })
     }
 
-    handleItem(event){
-        /*
+    /*
         Handling the item name added in the form
-         */
+    */
+    handleItem(event){
         this.setState({
             item:event.target.value
         })
 
     }
-    handleSubmit(e){
-        /*
+
+    /*
         Saving the added item in the database
-         */
+     */
+    handleSubmit(e){
         e.preventDefault();
         item.itemID = 'item'+this.state.item;
         item.itemName = this.state.item;
@@ -70,7 +79,7 @@ export default class ItemService extends Component{
     render() {
 
         return(
-            <div style={{height:'50%', width:'50%', marginTop:'5%', marginLeft:'30%', backgroundColor:'#f1f1f1'}}>
+            <div style={{height:'50%', width:'50%', marginTop:'5%', marginLeft:'30%', backgroundColor:'white'}}>
                 <div style={{backgroundColor:'#3fb1c6', border: '2px solid black'}}>
                     <p style={{marginLeft:'40%', color: 'white', fontSize:'20px', marginTop:'3%'}}>ITEMS</p>
                 </div>

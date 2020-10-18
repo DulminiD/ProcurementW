@@ -1,14 +1,19 @@
 import firebase from "../../firebase";
 import * as f from "firebase";
+import User from "../../User/user";
+
 const budgetdb = firebase.ref("/budget");
 const limitdb = firebase.ref("/limit");
 
-export default class Management {
+export default class Management extends User{
     budget;
     limit;
     items;
     site;
 
+    /*
+    The budget details set from the service class are sent to the database
+     */
     setBudget(){
         let budget = {
             budget : this.budget,
@@ -23,6 +28,9 @@ export default class Management {
             });
     }
 
+    /*
+    Budget details are retreived from the database
+     */
     getBudget(){
         let budgetArray = [];
         budgetdb.on("value", (budgets)=>{
@@ -34,6 +42,9 @@ export default class Management {
         return budgetArray;
     }
 
+    /*
+    The limit details set from the service class are sent to the database
+     */
     setLimit(){
         f.database().ref('limit/MIwGdpcUND8cGZUXhA4').set({limit: this.limit})
             .then(r  =>{console.log("Created new limit successfully!");})
@@ -42,6 +53,9 @@ export default class Management {
             })
     }
 
+    /*
+    Limit details are retreived from the database
+     */
     getLimit(){
         let limit = [];
         limitdb.on("value", (items)=>{
@@ -49,7 +63,7 @@ export default class Management {
                 limit.push(item.val())
             });
         });
-            console.log(limit)
+            console.log(limit);
             return limit;
 
     }

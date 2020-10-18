@@ -4,6 +4,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 import firebase from "../../firebase";
 import Management from "../Modal/management";
 const db = firebase.ref("/limit");
+
+/*
+Creating a management instance
+ */
 let management = new Management();
 
 export default class LimitService extends Component{
@@ -17,10 +21,16 @@ export default class LimitService extends Component{
         this.handleItem = this.handleItem.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+    /*
+       Getting the list of available items
+     */
     componentDidMount() {
         this.handleItemValue();
     }
 
+    /*
+    Handling data sent from the modal class
+     */
     handleItemValue(){
         this.setState({
             climit:management.getLimit()
@@ -38,11 +48,19 @@ export default class LimitService extends Component{
 
         });
     }
+
+    /*
+        Handling the limit added in the form
+    */
     handleItem(event){
         this.setState({
             limit:event.target.value
         })
     }
+
+    /*
+        Saving the added item in the database
+     */
     handleSubmit(){
         management.limit= this.state.limit;
         management.setLimit();
@@ -56,7 +74,7 @@ export default class LimitService extends Component{
     }
     render() {
         return(
-            <div style={{height:'50%', width:'50%', marginTop:'5%', marginLeft:'30%', backgroundColor:'#f1f1f1'}}>
+            <div style={{height:'50%', width:'50%', marginTop:'5%', marginLeft:'30%', backgroundColor:'white'}}>
                 <div style={{backgroundColor:'#3fb1c6', border: '2px solid black'}}>
                     <p style={{marginLeft:'40%', color: 'white', fontSize:'20px', marginTop:'3%'}}>UPDATE LIMIT</p>
                 </div>

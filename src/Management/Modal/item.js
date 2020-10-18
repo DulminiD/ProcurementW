@@ -5,6 +5,9 @@ export default class Item {
     itemID;
     itemName;
 
+    /*
+   The item details set from the service class are sent to the database
+    */
     addItems(itemObject){
         db.push(itemObject)
             .then((res) => {
@@ -15,6 +18,9 @@ export default class Item {
             });
     }
 
+    /*
+    Item details are retreived from the database
+     */
     getItems(){
         let itemArray = [];
         db.on("value", (items)=>{
